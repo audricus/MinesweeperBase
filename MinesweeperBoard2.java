@@ -18,7 +18,7 @@ public class MinesweeperBoard2{
         //Put the constructor here.
         this.rows = rows;
         this.columns = columns;
-        board = new Cell [rows*columns];
+        board = new Cell [rows][columns];// sets board perams
         //These pieces are for the GUI.
         JFrame frame = new JFrame();
         frame.add(addCells());
@@ -34,7 +34,7 @@ public class MinesweeperBoard2{
     public MinesweeperBoard2(){
         this(10,10,10);
     }
-    //adds bombs randomly arcoss the siz of the board
+    //adds bombs randomly arcoss the size of the board
     public void addBombs(int bombs){ //throws Exception{
         for(int i = bombs; i > 0; i--){
             int index = (int)(Math.random() * (rows*columns));
@@ -48,49 +48,51 @@ public class MinesweeperBoard2{
     }
     //checks for bombs in adjacent cells add val to cells in contact
     public void addNums(){
-        for (int i = 0; i< rows*columns; i++){
-            int index = 0;
-            if (board[i].isBomb() == true){
-                //Top
-                index = i - columns;
-                if (index > 0 && board [index].getValue() != -1 && index % rows == i % rows){
-                    board[index].addValue();
-                }
-                //Bottom
-                index = i + columns;
-                if (index <=(rows * columns - 1) && board [index].getValue() != -1 && index % rows == i % rows){
-                    board[index].addValue();
-                }
-                //Right
-                index = i + 1;
-                if (index <=(rows * columns -1) && board [index].getValue() != -1 && i % rows !=0){
-                    board[index].addValue();
-                }
-                //Left
-                index = i -1;
-                if (index > 0 && board [index].getValue() != -1 && i % rows !=0){
-                    board[index].addValue();
-                    //Top Left
-                    index = i - columns - 1;
+        for (int i = 0; i< rows; i++){
+            for (int i = 0; i< columns; i++){
+                int index = 0;
+                if (board[i].isBomb() == true){
+                    //Top
+                    index = i - columns;
+                    if (index > 0 && board [index].getValue() != -1 && index % rows == i % rows){
+                        board[index].addValue();
+                    }
+                    //Bottom
+                    index = i + columns;
+                    if (index <=(rows * columns - 1) && board [index].getValue() != -1 && index % rows == i % rows){
+                        board[index].addValue();
+                    }
+                    //Right
+                    index = i + 1;
+                    if (index <=(rows * columns -1) && board [index].getValue() != -1 && i % rows !=0){
+                        board[index].addValue();
+                    }
+                    //Left
+                    index = i -1;
                     if (index > 0 && board [index].getValue() != -1 && i % rows !=0){
                         board[index].addValue();
-                    }
-                    //Top Right
-                    index = i - columns + 1;
-                    if (index > 0 && board [index].getValue() != -1 && index % rows != rows -1){
-                        board[index].addValue();
-                    }
-                    //Bottom Left
-                    index = i + columns - 1;
-                    if (index <= (rows * columns -1) && board [index].getValue() != -1 && i % rows != rows -1){
-                        board[index].addValue();
-                    }
-                    //Bottom Right
-                    index = i + columns + 1;
-                    if (index <= (rows * columns -1) && board [index].getValue() != -1 && i % rows != 0){
-                        board[index].addValue();
-                    }
+                        //Top Left
+                        index = i - columns - 1;
+                        if (index > 0 && board [index].getValue() != -1 && i % rows !=0){
+                            board[index].addValue();
+                        }
+                        //Top Right
+                        index = i - columns + 1;
+                        if (index > 0 && board [index].getValue() != -1 && index % rows != rows -1){
+                            board[index].addValue();
+                        }
+                        //Bottom Left
+                        index = i + columns - 1;
+                        if (index <= (rows * columns -1) && board [index].getValue() != -1 && i % rows != rows -1){
+                            board[index].addValue();
+                        }
+                        //Bottom Right
+                        index = i + columns + 1;
+                        if (index <= (rows * columns -1) && board [index].getValue() != -1 && i % rows != 0){
+                            board[index].addValue();
+                        }
 
+                    }
                 }
             }
         }
@@ -100,12 +102,12 @@ public class MinesweeperBoard2{
         int i = 0;
         for(int y = 0; y < rows; y++){
             for(int x = 0; x < columns; x++){
-                if(board[i].isBomb()){
+                if(board[i][i].isBomb()){
                     System.out.print("X"+" ");
                     i++;
                 }
                 else{
-                    System.out.print(board[i].getValue()+ " ");
+                    System.out.print(board[i][i].getValue()+ " ");
                     i++;
                 }
             }
